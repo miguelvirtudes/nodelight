@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NodeLight Manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a field manual — sticky chapter rail on the left, reading column with phone screenshots set beside the steps. */
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --ink: #101828;
+  --muted: #536079;
+  --line: #d9e1ec;
+  --neon: #0a7fd6;
+  --neon-soft: #e3f1fd;
+  --ok: #138a4b;
+  --warn: #b35c00;
+  --bad: #c62828;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #060a14; --surface: #0d1424; --ink: #e8eef9; --muted: #93a1bb; --line: #1d2940;
+    --neon: #4cb8ff; --neon-soft: #0f2742; --ok: #42d48a; --warn: #ffad4d; --bad: #ff6b6b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #060a14; --surface: #0d1424; --ink: #e8eef9; --muted: #93a1bb; --line: #1d2940;
+  --neon: #4cb8ff; --neon-soft: #0f2742; --ok: #42d48a; --warn: #ffad4d; --bad: #ff6b6b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
+a { color: var(--neon); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+kbd { font: 600 0.82em var(--body); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px; background: var(--surface); white-space: nowrap; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; }
+
+/* Masthead */
+header.mast { padding-block: 48px 28px; }
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 0 0 1px var(--line), 0 8px 30px -10px var(--neon); }
+.eyebrow { font: 600 13px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--neon); }
+h1 { font: 800 clamp(40px, 7vw, 72px)/0.98 var(--display); letter-spacing: -0.02em; margin: 18px 0 14px; text-wrap: balance; }
+.lede { font-size: 20px; color: var(--muted); max-width: 62ch; margin: 0; }
+
+.tour { margin-block: 30px 10px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.tour video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; display: block; border: 1px solid var(--line); }
+.tour p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* Body: rail + content */
+.layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; padding-block: 30px 80px; }
+nav.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; font-size: 15px; }
+nav.rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: ch; }
+nav.rail li { counter-increment: ch; }
+nav.rail a { display: flex; gap: 10px; padding: 6px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; }
+nav.rail a::before { content: counter(ch, decimal-leading-zero); font: 500 12px/1.9 var(--mono); color: var(--neon); }
+nav.rail a:hover { background: var(--neon-soft); color: var(--ink); }
+
+main { min-width: 0; }
+section.ch { padding-block: 34px; border-top: 1px solid var(--line); }
+section.ch:first-child { border-top: 0; padding-top: 0; }
+h2 { font: 800 clamp(28px, 4vw, 38px)/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+h2 .num { font: 500 15px var(--mono); color: var(--neon); display: block; margin-bottom: 8px; letter-spacing: 0; }
+h3 { font: 600 21px/1.3 var(--display); margin: 28px 0 8px; }
+p { margin: 0 0 14px; max-width: 68ch; }
+.intro { color: var(--muted); font-size: 18px; }
+ul, ol.steps { padding-left: 22px; margin: 0 0 16px; max-width: 66ch; }
+li { margin-bottom: 6px; }
+ol.steps li::marker { color: var(--neon); font-weight: 700; }
+
+/* Screen + text pairs */
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 32px; align-items: start; margin-block: 18px 8px; }
+.pair.flip { grid-template-columns: 250px minmax(0, 1fr); }
+.pair.flip > figure { order: -1; }
+.shots { display: flex; gap: 16px; flex-wrap: wrap; margin-block: 16px; }
+.shots figure { flex: 1 1 200px; max-width: 250px; }
+figure { margin: 0; }
+figure img { width: 100%; max-width: 100%; display: block; border-radius: 26px; border: 6px solid #10141c; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -24px rgba(0, 40, 90, .55); background: #000; }
+figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-block: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 15.5px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 12.5px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: color-mix(in srgb, var(--neon-soft) 45%, var(--surface)); }
+td:first-child { white-space: nowrap; font-weight: 700; }
+
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; box-shadow: 0 0 8px currentColor; }
+.dot.ok { background: var(--ok); color: var(--ok); }
+.dot.warn { background: #e8b100; color: #e8b100; }
+.dot.bad { background: var(--bad); color: var(--bad); }
+.dot.off { background: var(--muted); color: transparent; box-shadow: none; }
+
+.note { border-left: 3px solid var(--neon); background: var(--neon-soft); padding: 12px 16px; border-radius: 0 10px 10px 0; margin-block: 16px; max-width: 68ch; }
+.note p:last-child { margin: 0; }
+.note strong { color: var(--ink); }
+
+.dmx { font: 500 13px var(--mono); color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: 14px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  nav.rail { position: static; }
+  nav.rail ol { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .pair, .pair.flip { grid-template-columns: minmax(0, 1fr); }
+  .pair > figure, .pair.flip > figure { order: 0; max-width: 250px; }
+}
+.print-only, .print-inline { display: none; }
+
+/* Print / Save as PDF: always light, one column, no player, nothing split across pages. */
+@page { size: A4; margin: 16mm 15mm 18mm; }
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {
+    --bg: #ffffff; --surface: #ffffff; --ink: #111827; --muted: #4b5568; --line: #d5dce6;
+    --neon: #0a6fc0; --neon-soft: #eaf4fd; --ok: #138a4b; --warn: #b35c00; --bad: #c62828;
+    color-scheme: light;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html { scroll-behavior: auto; }
+  body { font-size: 10.5pt; line-height: 1.5; background: #fff; }
+  .wrap { max-width: none; padding-inline: 0; }
+  header.mast { padding-block: 0 6mm; }
+  h1 { font-size: 34pt; margin: 6mm 0 3mm; }
+  .lede { font-size: 12.5pt; }
+  .tour video, nav.rail { display: none; }
+  .print-only { display: block; }
+  .print-inline { display: inline; }
+  .tour { margin-block: 6mm 0; break-inside: avoid; }
+  .tour img { width: 100%; border-radius: 8px; border: 1px solid var(--line); }
+  .layout { display: block; padding-block: 0; }
+  section.ch { padding-block: 6mm 2mm; border-top: 1px solid var(--line); }
+  section.ch:first-child { border-top: 0; }
+  .dot { width: 8px; height: 8px; box-shadow: none; }
+  h2 { font-size: 22pt; break-inside: avoid; break-after: avoid; }
+  h2 .num { break-after: avoid; }
+  h3 { font-size: 13.5pt; margin-top: 5mm; break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+  .intro { font-size: 12pt; }
+  .pair, .pair.flip { grid-template-columns: minmax(0, 1fr) 46mm; gap: 7mm; break-inside: avoid; }
+  .pair.flip { grid-template-columns: 46mm minmax(0, 1fr); }
+  .shots { gap: 6mm; break-inside: avoid; }
+  .shots figure { flex: 0 0 46mm; max-width: 46mm; }
+  figure { break-inside: avoid; }
+  figure img { border-width: 3px; border-radius: 14px; box-shadow: none; }
+  figcaption { font-size: 8.5pt; }
+  .table-wrap { overflow: visible; break-inside: avoid; }
+  table { font-size: 9.5pt; }
+  tr { break-inside: avoid; }
+  .note { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+  footer { padding-block: 4mm 0; font-size: 8.5pt; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header class="mast wrap">
+  <div class="brand">
+    <img src="img/icon.png" alt="NodeLight app icon: a blue neon N with node rings">
+    <span class="eyebrow">User manual · iPhone · Art-Net</span>
+  </div>
+  <h1>NodeLight Manual</h1>
+  <p class="lede">NodeLight turns an iPhone into a small lighting desk. It sends DMX over Art-Net to a wireless node, so you can set colors and levels, save looks as presets and run effects from your pocket.</p>
+
+  <div class="tour">
+    <video controls preload="metadata" poster="img/poster.jpg" src="../media/NodeLight-Tour.mp4"></video>
+    <img class="print-only" src="img/poster.jpg" alt="Opening frame of the NodeLight video tour">
+    <p>Video tour, 2 minutes 10 seconds, narrated. It walks through every tab using a demo show called “Demo Club”.</p>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="rail" aria-label="Chapters">
+    <ol>
+      <li><a href="#start">Getting connected</a></li>
+      <li><a href="#lights">Lights</a></li>
+      <li><a href="#color">Color and Locate</a></li>
+      <li><a href="#sections">Sections</a></li>
+      <li><a href="#groups">Groups</a></li>
+      <li><a href="#presets">Presets</a></li>
+      <li><a href="#effects">Effects</a></li>
+      <li><a href="#setup">Setup and shows</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+      <li><a href="#reference">Quick reference</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <!-- 01 -->
+    <section class="ch" id="start">
+      <h2><span class="num">01</span>Getting connected</h2>
+      <p class="intro">You need three things: an iPhone with NodeLight, an Art-Net node (for example a Pknight Art-Net WiFi adapter), and DMX lights wired to that node.</p>
+
+      <h3>First start</h3>
+      <ol class="steps">
+        <li>Join the iPhone to the node’s Wi-Fi network. Many wireless nodes make their own network; the Pknight’s adapter answers at <code>192.168.4.1</code>.</li>
+        <li>Open NodeLight. When iOS asks to find devices on your local network, tap <strong>Allow</strong>. Without it the app cannot reach the node.</li>
+        <li>Watch the status light at the top of every tab. Within a few seconds it should turn green and read <strong>Online</strong>.</li>
+      </ol>
+      <p>NodeLight looks for nodes on its own. It asks every address on the current Wi-Fi network whether it is an Art-Net node, and lists the ones that answer under <strong>Setup → Nodes Found</strong>. With <strong>Find Node Automatically</strong> on (the default), it switches to the node it finds whenever the saved node IP stops answering. That covers a node that changed its Wi-Fi mode and got a new address.</p>
+
+      <h3>What the status light means</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Light</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><span class="dot ok"></span>Online</td><td>The node answered in the last 5 seconds. Its name shows in the Presets tab and in Setup.</td></tr>
+            <tr><td><span class="dot warn"></span>Searching</td><td>Just started or the IP changed. NodeLight is waiting up to 5 seconds for a first answer.</td></tr>
+            <tr><td><span class="dot bad"></span>No Reply</td><td>No answer for more than 5 seconds: wrong IP, node switched off, or the iPhone is on another network.</td></tr>
+            <tr><td><span class="dot bad"></span>Error</td><td>The iPhone cannot send at all, for example no Wi-Fi or local network access was denied.</td></tr>
+            <tr><td><span class="dot off"></span>Off</td><td>Output is switched off in Setup.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><p><strong>Green means the node is alive, not that each packet arrived.</strong> DMX travels over UDP, which never confirms delivery. A few cheap nodes never answer the status poll at all; with those the light stays on No Reply while the lights still react.</p></div>
+    </section>
+
+    <!-- 02 -->
+    <section class="ch" id="lights">
+      <h2><span class="num">02</span>Lights</h2>
+      <p class="intro">The Lights tab lists every light in the show. Each row has the light’s name on top and its controls underneath.</p>
+
+      <div class="pair">
+        <div>
+          <h3>Adding a light</h3>
+          <ol class="steps">
+            <li>Tap <kbd>+</kbd> at the top right, then <strong>Add Light</strong>.</li>
+            <li>Give it a name, the <strong>Universe</strong> and the <strong>Start Address</strong> set on the light itself. <strong>Use Next Free Address</strong> picks the first free channel after the lights you already have.</li>
+            <li>Choose a <strong>Type</strong>: Dimmer, RGB, RGBW, Dimmer + RGB, Dimmer + RGBW, Dimmer + RGBWA+UV, Moving Head, or Custom with your own channel count.</li>
+            <li>Set <strong>Quantity</strong> to add several identical lights at once. They get consecutive addresses and continue in the next universe when one fills up.</li>
+            <li>Rename or retype any channel in the <strong>Channels</strong> list, then tap <strong>Add</strong>.</li>
+          </ol>
+          <h3>Controlling a light</h3>
+          <ul>
+            <li><strong>Fader:</strong> sets the brightness. In the default right-handed layout, 0% is on the right.</li>
+            <li><strong>Round color button:</strong> opens the color window (chapter 03).</li>
+            <li><strong>Tap the name:</strong> opens the light’s own screen with every channel.</li>
+            <li><strong>Touch and hold the name:</strong> Edit, Duplicate, Move to Section, Delete. Holding the fader never opens this menu, so you can’t trigger it by accident while fading.</li>
+          </ul>
+          <p>Overlapping addresses show an orange warning triangle on the row and in the light’s screen.</p>
+        </div>
+        <figure>
+          <img src="img/lights.jpg" alt="Lights tab with a Stage section of four pars, each with a color button and fader at 78%" loading="lazy">
+          <figcaption>Lights tab. The dot next to each name shows the light’s current color.</figcaption>
+        </figure>
+      </div>
+
+      <div class="shots">
+        <figure>
+          <img src="img/light_detail.jpg" alt="Par 1 screen with Color, Locate, Reset and one slider per DMX channel" loading="lazy">
+          <figcaption>A light’s screen: every channel with its DMX address and value, plus Locate and Reset.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/light_menu.jpg" alt="Touch-and-hold menu on Par 2 with Edit, Duplicate, Move to Section and Delete" loading="lazy">
+          <figcaption>Touch and hold a light’s name for its menu.</figcaption>
+        </figure>
+      </div>
+      <p><strong>Reset</strong> puts every channel back to its default value. <strong>Delete</strong> always asks first with a red confirmation; deleting a light also removes it from groups, presets and effects.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="ch" id="color">
+      <h2><span class="num">03</span>Color and Locate</h2>
+      <div class="pair">
+        <div>
+          <h3>The color window</h3>
+          <p>Tap any round color button: on a light row, a group row, or a light’s screen. Drag on the wheel or tap one of the 14 swatches. The lights change while you choose.</p>
+          <ul>
+            <li><kbd>✓</kbd> keeps the new color.</li>
+            <li><kbd>X</kbd> puts back the colors the lights had before you opened the window.</li>
+          </ul>
+          <p>On a group, the color goes to every light in it that has red, green and blue channels.</p>
+
+          <h3>Locate</h3>
+          <p>Locate helps you find a light on stage. Tap <strong>Locate</strong> on a light’s or group’s screen and its lights blink full white once a second. The button turns yellow, pulses and reads <strong>Stop</strong>, and the color dots in the app blink along with the real lights.</p>
+          <ul>
+            <li>Locate overrides Grand Master and Blackout, so it works even when everything is dark.</li>
+            <li>It only changes what is sent to the lights. When you stop, or leave the screen, they go back to exactly how they were.</li>
+            <li>Only one thing blinks at a time: locating another light stops the previous one.</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="img/color.jpg" alt="Color window with a hue wheel, 14 swatches, a cancel X and a confirm check mark" loading="lazy">
+          <figcaption>Color window. X cancels, ✓ keeps.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="ch" id="sections">
+      <h2><span class="num">04</span>Sections</h2>
+      <p class="intro">Sections are headings on the Lights tab: a room, a side of the stage, a type of light. They only organize the list. Unlike a group, every light in a section keeps its own controls.</p>
+      <ul>
+        <li><strong>Add a section:</strong> <kbd>+</kbd> → <strong>Add Section</strong>, then name it.</li>
+        <li><strong>Put a light in a section:</strong> touch and hold its name → <strong>Move to Section</strong>. The list offers every section, <strong>No Section</strong> and <strong>New Section…</strong>. You can also pick the section in the light’s editor, or use <strong>Add Light Here</strong> from a section’s menu.</li>
+        <li><strong>Fold a section:</strong> tap its name. The arrow shows whether it is open, and the app remembers it.</li>
+        <li><strong>Fold or open all:</strong> the button next to <kbd>+</kbd> folds every section, or opens them all when they are already folded.</li>
+        <li><strong>Section menu <kbd>⋯</kbd>:</strong> Add Light Here, Rename, Move Up, Move Down, Delete Section. Deleting a section keeps its lights; they move to <strong>No Section</strong>.</li>
+      </ul>
+      <p>With no sections at all, the list is grouped by universe instead.</p>
+    </section>
+
+    <!-- 05 -->
+    <section class="ch" id="groups">
+      <h2><span class="num">05</span>Groups</h2>
+      <div class="pair flip">
+        <figure>
+          <img src="img/groups.jpg" alt="Groups tab with Stage Pars, Bar Strips and All Lights, each with a color button and a fader" loading="lazy">
+          <figcaption>Groups tab. Bar Strips has no dimmer channel, so it shows a color button only.</figcaption>
+        </figure>
+        <div>
+          <p class="intro">A group controls several lights together with one fader and one color button.</p>
+          <ol class="steps">
+            <li>Tap <kbd>+</kbd>, name the group and tick its lights. <strong>All</strong> and <strong>None</strong> speed this up.</li>
+            <li>Use the row’s fader and color button to set every light in the group at once.</li>
+            <li>Tap the group’s name for its screen: Color, Locate, Reset, one slider per attribute (dimmer, red, pan…) and the list of its lights.</li>
+          </ol>
+          <ul>
+            <li><strong>Touch and hold the name:</strong> Edit, Move Up, Move Down, Delete. Deleting a group never deletes its lights.</li>
+            <li>The <kbd>⋯</kbd> button on a group’s screen offers <strong>Record Preset</strong> (with the group already picked) and <strong>Edit Group</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 -->
+    <section class="ch" id="presets">
+      <h2><span class="num">06</span>Presets</h2>
+      <p class="intro">A preset saves a whole look: the values of the lights you choose. Recalling it crossfades the lights to that look.</p>
+
+      <div class="shots">
+        <figure>
+          <img src="img/presets_recall.jpg" alt="Presets tab with Grand Master, BO and four preset buttons; Warm Wash is fading in with a progress bar" loading="lazy">
+          <figcaption>Tap a preset to recall it. The bar shows the crossfade’s progress.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/record_preset.jpg" alt="Record Preset sheet with a name field, transition time buttons and an All Lights switch" loading="lazy">
+          <figcaption>Record Preset: name, transition and which lights.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Recording a preset</h3>
+      <ol class="steps">
+        <li>Set the lights to the look you want.</li>
+        <li>Tap the record button <kbd>◉</kbd> at the top of the Presets tab.</li>
+        <li>Name it and choose the <strong>Transition</strong>: Snap, 0.5 s, 1 s, 2 s, 5 s, or any time up to 60 s with the stepper.</li>
+        <li>With a time set, pick a <strong>Style</strong> (see below).</li>
+        <li>Leave <strong>All Lights</strong> on to record everything, or turn it off and tick any groups and single lights. Recalling the preset then only changes those lights.</li>
+        <li>Tap <strong>Save</strong>.</li>
+      </ol>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Style</th><th>How the lights cross into the preset</th></tr></thead>
+          <tbody>
+            <tr><td>Linear</td><td>Constant speed from start to end.</td></tr>
+            <tr><td>Smooth</td><td>Starts and ends gently.</td></tr>
+            <tr><td>Ease In</td><td>Starts slowly, finishes fast.</td></tr>
+            <tr><td>Ease Out</td><td>Starts fast, settles slowly.</td></tr>
+            <tr><td>Dip to Black</td><td>Fades out, changes, then fades in to the new look.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Changing presets</h3>
+      <p>Touch and hold a preset for <strong>Update from Current</strong> (re-record its lights as they are now), <strong>Edit…</strong> and <strong>Delete</strong>. The editor also changes the name, transition and button color, moves the preset earlier or later in the grid, and has <strong>Recall</strong> and <strong>Update from Current Values</strong>.</p>
+
+      <h3>Grand Master and Blackout</h3>
+      <p>The panel at the top of the Presets tab scales every light’s brightness with the <strong>Grand Master</strong> fader. <strong>BO</strong> is an instant blackout; it turns red while active. Neither changes the lights’ saved values. For lights without a dimmer channel, they scale the color channels instead.</p>
+    </section>
+
+    <!-- 07 -->
+    <section class="ch" id="effects">
+      <h2><span class="num">07</span>Effects</h2>
+      <p class="intro">Effects play moving patterns on any lights and groups. Like Locate, they only change what is sent to the lights: stop an effect and its lights return to how they were.</p>
+
+      <div class="shots">
+        <figure>
+          <img src="img/effects_running.jpg" alt="Effects tab with three effects playing, each with a red stop button and a speed fader in BPM" loading="lazy">
+          <figcaption>Each effect has play/stop and a live speed fader.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/effect_editor.jpg" alt="Effect editor in Multiple mode with Blink, Pulse and Rainbow tiles selected and Blink settings below" loading="lazy">
+          <figcaption>The editor in Multiple mode: several patterns in one effect.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/effect_editor2.jpg" alt="Lower part of the effect editor with Rainbow speed, color strength and spread, then the groups list" loading="lazy">
+          <figcaption>Each pattern has its own settings, then you pick groups and lights.</figcaption>
+        </figure>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>What it does</th><th>Sets</th></tr></thead>
+          <tbody>
+            <tr><td>Blink</td><td>Switches the lights on and off on every beat.</td><td>Brightness</td></tr>
+            <tr><td>Pulse</td><td>Fades the lights smoothly up and down, like breathing.</td><td>Brightness</td></tr>
+            <tr><td>Chase</td><td>Lights one light after another: group lights first, then single lights in the order you ticked them.</td><td>Brightness</td></tr>
+            <tr><td>Sparkle</td><td>Flashes lights at random, about a third at a time.</td><td>Brightness</td></tr>
+            <tr><td>Rainbow</td><td>Cycles the lights through every color.</td><td>Color</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Making an effect</h3>
+      <ol class="steps">
+        <li>Tap <kbd>+</kbd> on the Effects tab.</li>
+        <li>Choose <strong>Single</strong> for one pattern, or <strong>Multiple</strong> to tick several that play together.</li>
+        <li>Adjust each pattern:
+          <ul>
+            <li><strong>Speed</strong> in BPM, 10 to 240, or tap <kbd>Tap</kbd> in time with the music.</li>
+            <li><strong>Depth</strong>: how dark the low point gets. For Rainbow it is <strong>Color Strength</strong>.</li>
+            <li><strong>Spread</strong>: 0% keeps all lights together, 100% spreads them into a wave.</li>
+            <li><strong>Color</strong> (brightness patterns only): <span class="mono">◐</span> keeps each light’s own color, or pick one of eight.</li>
+          </ul>
+        </li>
+        <li>Tick the groups and lights it should play on.</li>
+      </ol>
+      <p>Every change plays on the lights immediately while the editor is open. <strong>Save</strong> keeps it; <strong>Cancel</strong> puts the effect back exactly as it was, including stopped if it was stopped. A new effect starts playing as soon as it has a light.</p>
+
+      <h3>Playing and mixing</h3>
+      <ul>
+        <li>Press the green <kbd>▶</kbd> to play and the red <kbd>■</kbd> to stop. The square button at the top stops every effect at once.</li>
+        <li>The row’s speed fader moves all of an effect’s patterns together and keeps their ratio.</li>
+        <li>Brightness patterns and Rainbow mix: <strong>Blink + Rainbow</strong> makes the rainbow blink. Two brightness patterns multiply, so Pulse + Sparkle twinkles while it breathes.</li>
+        <li>A brightness pattern with its own color picked replaces Rainbow’s color.</li>
+        <li>A light that is off or black opens to full white so the effect is always visible. Grand Master and Blackout still apply.</li>
+        <li>Effects are saved in the show but always start stopped when you open the app.</li>
+      </ul>
+    </section>
+
+    <!-- 08 -->
+    <section class="ch" id="setup">
+      <h2><span class="num">08</span>Setup and shows</h2>
+      <div class="pair">
+        <div>
+          <p class="intro">The gear button opens Setup. Changes apply as you make them.</p>
+          <ul>
+            <li><strong>Art-Net Output:</strong> output on or off, the node IP, port (normally <code>6454</code>), refresh rate (1 to 44 Hz, default 40) and the status.</li>
+            <li><strong>Nodes Found:</strong> tap a node to use it. <strong>Find Node Automatically</strong> switches by itself when the node IP stops answering.</li>
+            <li><strong>Appearance:</strong> Dark (default) or Light. It switches instantly.</li>
+            <li><strong>Layout:</strong> Left-handed puts the color button and fader on the other side and reverses every fader, with 0% on the left. Names, menus and bars stay where they are.</li>
+            <li><strong>Current Show:</strong> name, number of lights, universes and channels used, plus Export and Import.</li>
+            <li><strong>Saved Shows:</strong> tap to open, swipe to delete, New Show, Duplicate Current Show.</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="img/setup.jpg" alt="Setup sheet showing Art-Net output settings, status Online and Nodes Found with the Pknight node" loading="lazy">
+          <figcaption>Setup with the node online.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Saving and files</h3>
+      <p>Your show saves itself after every change and when you leave the app. The folder button at the top left has <strong>Save</strong>, <strong>Save As…</strong>, <strong>Rename…</strong>, <strong>Open</strong>, <strong>New Show</strong>, <strong>Import File…</strong> and <strong>Export File…</strong>.</p>
+      <p>Shows are plain files named after the show, in the Files app under <strong>On My iPhone → NodeLight → Shows</strong>, for example <code>Demo Club.json</code>. Renaming a show renames its file, and two shows with the same name become <code>Name.json</code> and <code>Name 2.json</code>. If you delete a show’s file in the Files app, NodeLight notices when you return and removes it from the list.</p>
+      <h3>Free and Full Version</h3>
+      <p>NodeLight is free to download. The free version controls <strong>one light</strong>, with Groups, Presets, Effects, Locate and sharing all working, so you can try it with your own node. It doesn't save or open shows: when you close the app the light is gone, and only the node settings are kept.</p>
+      <p>The <strong>Full Version</strong> is a one-time purchase in the app (Setup → <strong>Unlock Full Version</strong>, or whenever you reach a limit). It adds unlimited lights, saving and opening shows, and Import and Export. What you built in the free version is kept as your first show. On a new iPhone, tap <strong>Restore Purchase</strong> to get it again for free.</p>
+      <div class="note"><p><strong>Back up with Export.</strong> Export File shares the show file by AirDrop, Mail or Files. Import File opens a show file from anywhere, including one exported from another iPhone.</p></div>
+    </section>
+
+    <!-- 09 -->
+    <section class="ch" id="trouble">
+      <h2><span class="num">09</span>Troubleshooting</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Problem</th><th>What to check</th></tr></thead>
+          <tbody>
+            <tr><td>Status says No Reply</td><td>Is the iPhone on the node’s Wi-Fi? Check Setup → Nodes Found and tap the node. Make sure Local Network access is allowed in iOS Settings → NodeLight.</td></tr>
+            <tr><td>Green, but lights don’t react</td><td>Check the universe and start address on the light itself. Most nodes start at universe 0; if nothing reacts, try 1. Make sure the light is in DMX mode with the right channel count.</td></tr>
+            <tr><td>Wrong colors or channels</td><td>The light’s channel order differs from the type you chose. Open the light’s editor and reorder or retype the channels to match its manual.</td></tr>
+            <tr><td>Lights flicker or lag</td><td>Lower the refresh rate in Setup (for example 30 Hz) and keep the iPhone close to the node.</td></tr>
+            <tr><td>Node changed address</td><td>Leave Find Node Automatically on, or pick the node again under Nodes Found.</td></tr>
+            <tr><td>A light stays white and blinking</td><td>Locate is on. Tap <strong>Stop</strong> on its screen, or leave the screen.</td></tr>
+            <tr><td>Everything is dark</td><td>Check that BO is not red and the Grand Master is up.</td></tr>
+            <tr><td>App won’t open</td><td>On a free developer account the app expires after 7 days and needs reinstalling. If iOS says the developer is untrusted, go to Settings → General → VPN &amp; Device Management and trust it. iOS needs internet for that check.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="ch" id="reference">
+      <h2><span class="num">10</span>Quick reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Gesture</th><th>Where</th><th>Does</th></tr></thead>
+          <tbody>
+            <tr><td>Tap a name</td><td>Lights, Groups</td><td>Opens its screen</td></tr>
+            <tr><td>Hold a name</td><td>Lights, Groups, Effects</td><td>Edit, Duplicate, Move, Delete</td></tr>
+            <tr><td>Hold a preset</td><td>Presets</td><td>Update from Current, Edit, Delete</td></tr>
+            <tr><td>Tap a preset</td><td>Presets</td><td>Recalls it with its fade</td></tr>
+            <tr><td>Tap a section name</td><td>Lights</td><td>Folds or opens it</td></tr>
+            <tr><td>Tap <kbd>⋯</kbd> on a section</td><td>Lights</td><td>Add Light Here, Rename, Move, Delete</td></tr>
+            <tr><td>Tap the round button</td><td>Anywhere</td><td>Color window</td></tr>
+            <tr><td>Tap <kbd>Tap</kbd> in rhythm</td><td>Effect editor</td><td>Sets the speed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="dmx">Protocol: Art-Net 4 · ArtDMX (OpCode 0x5000) on UDP 6454 · status by ArtPoll / ArtPollReply every 2 s · universes are Art-Net port-addresses, 0 = first.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="wrap">NodeLight · iPhone lighting controller for Art-Net. Screenshots and video use the demo show “Demo Club”. · <a href="../">Home</a> · <a href="../support/">Support</a> · <a href="../privacy/">Privacy</a></footer>
+</body>
+</html>
