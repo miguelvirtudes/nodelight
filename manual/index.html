@@ -173,10 +173,10 @@ html { scroll-behavior: smooth; }
 <header class="mast wrap">
   <div class="brand">
     <img src="img/icon.png" alt="NodeLight app icon: a blue neon N with node rings">
-    <span class="eyebrow">User manual · iPhone · Art-Net</span>
+    <span class="eyebrow">User manual · iPhone &amp; Android · Art-Net</span>
   </div>
   <h1>NodeLight Manual</h1>
-  <p class="lede">NodeLight turns an iPhone into a small lighting desk. It sends DMX over Art-Net to a wireless node, so you can set colors and levels, save looks as presets and run effects from your pocket.</p>
+  <p class="lede">NodeLight turns a phone — iPhone or Android — into a small lighting desk. It sends DMX over Art-Net to a wireless node, so you can set colors and levels, save looks as presets and run effects from your pocket.</p>
 
   <div class="tour">
     <video controls preload="metadata" poster="img/poster.jpg" src="../media/NodeLight-Tour.mp4"></video>
@@ -196,6 +196,7 @@ html { scroll-behavior: smooth; }
       <li><a href="#presets">Presets</a></li>
       <li><a href="#effects">Effects</a></li>
       <li><a href="#setup">Setup and shows</a></li>
+      <li><a href="#sharing">Sharing with other phones</a></li>
       <li><a href="#trouble">Troubleshooting</a></li>
       <li><a href="#reference">Quick reference</a></li>
     </ol>
@@ -205,12 +206,12 @@ html { scroll-behavior: smooth; }
     <!-- 01 -->
     <section class="ch" id="start">
       <h2><span class="num">01</span>Getting connected</h2>
-      <p class="intro">You need three things: an iPhone with NodeLight, an Art-Net node (for example a Pknight Art-Net WiFi adapter), and DMX lights wired to that node.</p>
+      <p class="intro">You need three things: a phone with NodeLight (iPhone or Android), an Art-Net node (for example a Pknight Art-Net WiFi adapter), and DMX lights wired to that node.</p>
 
       <h3>First start</h3>
       <ol class="steps">
-        <li>Join the iPhone to the node’s Wi-Fi network. Many wireless nodes make their own network; the Pknight’s adapter answers at <code>192.168.4.1</code>.</li>
-        <li>Open NodeLight. When iOS asks to find devices on your local network, tap <strong>Allow</strong>. Without it the app cannot reach the node.</li>
+        <li>Join the phone to the node’s Wi-Fi network. Many wireless nodes make their own network; the Pknight’s adapter answers at <code>192.168.4.1</code>.</li>
+        <li>Open NodeLight. On iPhone, when iOS asks to find devices on your local network, tap <strong>Allow</strong>; without it the app cannot reach the node. Android doesn’t ask.</li>
         <li>Watch the status light at the top of every tab. Within a few seconds it should turn green and read <strong>Online</strong>.</li>
       </ol>
       <p>NodeLight looks for nodes on its own. It asks every address on the current Wi-Fi network whether it is an Art-Net node, and lists the ones that answer under <strong>Setup → Nodes Found</strong>. With <strong>Find Node Automatically</strong> on (the default), it switches to the node it finds whenever the saved node IP stops answering. That covers a node that changed its Wi-Fi mode and got a new address.</p>
@@ -222,8 +223,8 @@ html { scroll-behavior: smooth; }
           <tbody>
             <tr><td><span class="dot ok"></span>Online</td><td>The node answered in the last 5 seconds. Its name shows in the Presets tab and in Setup.</td></tr>
             <tr><td><span class="dot warn"></span>Searching</td><td>Just started or the IP changed. NodeLight is waiting up to 5 seconds for a first answer.</td></tr>
-            <tr><td><span class="dot bad"></span>No Reply</td><td>No answer for more than 5 seconds: wrong IP, node switched off, or the iPhone is on another network.</td></tr>
-            <tr><td><span class="dot bad"></span>Error</td><td>The iPhone cannot send at all, for example no Wi-Fi or local network access was denied.</td></tr>
+            <tr><td><span class="dot bad"></span>No Reply</td><td>No answer for more than 5 seconds: wrong IP, node switched off, or the phone is on another network.</td></tr>
+            <tr><td><span class="dot bad"></span>Error</td><td>The phone cannot send at all, for example no Wi-Fi, or (on iPhone) local network access was denied.</td></tr>
             <tr><td><span class="dot off"></span>Off</td><td>Output is switched off in Setup.</td></tr>
           </tbody>
         </table>
@@ -475,28 +476,47 @@ html { scroll-behavior: smooth; }
 
       <h3>Saving and files</h3>
       <p>Your show saves itself after every change and when you leave the app. The folder button at the top left has <strong>Save</strong>, <strong>Save As…</strong>, <strong>Rename…</strong>, <strong>Open</strong>, <strong>New Show</strong>, <strong>Import File…</strong> and <strong>Export File…</strong>.</p>
-      <p>Shows are plain files named after the show, in the Files app under <strong>On My iPhone → NodeLight → Shows</strong>, for example <code>Demo Club.json</code>. Renaming a show renames its file, and two shows with the same name become <code>Name.json</code> and <code>Name 2.json</code>. If you delete a show’s file in the Files app, NodeLight notices when you return and removes it from the list.</p>
+      <p>Shows are plain files named after the show, for example <code>Demo Club.json</code>. On iPhone they are in the Files app under <strong>On My iPhone → NodeLight → Shows</strong>; on Android they stay inside the app, so use Export and Import to move them. Renaming a show renames its file, and two shows with the same name become <code>Name.json</code> and <code>Name 2.json</code>. On iPhone, if you delete a show’s file in the Files app, NodeLight notices when you return and removes it from the list.</p>
       <h3>Free and Full Version</h3>
       <p>NodeLight is free to download. The free version controls <strong>one light</strong>, with Groups, Presets, Effects, Locate and sharing all working, so you can try it with your own node. It doesn't save or open shows: when you close the app the light is gone, and only the node settings are kept.</p>
-      <p>The <strong>Full Version</strong> is a one-time purchase in the app (Setup → <strong>Unlock Full Version</strong>, or whenever you reach a limit). It adds unlimited lights, saving and opening shows, and Import and Export. What you built in the free version is kept as your first show. On a new iPhone, tap <strong>Restore Purchase</strong> to get it again for free.</p>
-      <div class="note"><p><strong>Back up with Export.</strong> Export File shares the show file by AirDrop, Mail or Files. Import File opens a show file from anywhere, including one exported from another iPhone.</p></div>
+      <p>The <strong>Full Version</strong> is a one-time purchase in the app (Setup → <strong>Unlock Full Version</strong>, or whenever you reach a limit). It adds unlimited lights, saving and opening shows, and Import and Export. What you built in the free version is kept as your first show. On a new phone with the same Apple or Google account, tap <strong>Restore Purchase</strong> to get it again for free.</p>
+      <div class="note"><p><strong>Back up with Export.</strong> Export File shares the show file by AirDrop, Mail or Files. Import File opens a show file from anywhere, including one exported from another phone — show files are the same on iPhone and Android.</p></div>
     </section>
 
     <!-- 09 -->
+    <section class="ch" id="sharing">
+      <h2><span class="num">09</span>Sharing with other phones</h2>
+      <p class="intro">Several phones can run the same show together — for example one at the desk and one on stage. iPhones and Android phones work together.</p>
+      <ol class="steps">
+        <li>Put every phone on the same Wi-Fi network.</li>
+        <li>Open the same show on each phone (send it with <strong>Export File</strong> and open it with <strong>Import File</strong>).</li>
+        <li>Leave <strong>Setup → Sharing → Share with Other Phones</strong> on (it is on by default). The other phones appear in the list below it.</li>
+      </ol>
+      <p>Every fader, color and preset change on one phone shows on the others within a tenth of a second, and <strong>Grand Master</strong> and <strong>Blackout</strong> are shared too. When two phones change the same light, the newest change wins.</p>
+      <ul>
+        <li><strong>Joining a running show:</strong> a phone that opens NodeLight while another one is already running takes over the current state first, for up to 3 seconds, so the lights don’t jump.</li>
+        <li><strong>New lights</strong> start from the values the other phones are sending. A light’s or group’s screen has <strong>Read Current State</strong> to take them over again.</li>
+        <li><strong>Effects and Locate stay on the phone that starts them.</strong> Run them from one phone at a time.</li>
+        <li><strong>Other controllers:</strong> NodeLight also follows a lighting desk or another Art-Net app (such as StageLight) that sends DMX on the network, and takes over its state when it starts.</li>
+      </ul>
+      <div class="note"><p><strong>No node needed to try it.</strong> The phones talk to each other directly, so sharing works even before the Art-Net node is connected.</p></div>
+    </section>
+
+    <!-- 10 -->
     <section class="ch" id="trouble">
-      <h2><span class="num">09</span>Troubleshooting</h2>
+      <h2><span class="num">10</span>Troubleshooting</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Problem</th><th>What to check</th></tr></thead>
           <tbody>
-            <tr><td>Status says No Reply</td><td>Is the iPhone on the node’s Wi-Fi? Check Setup → Nodes Found and tap the node. Make sure Local Network access is allowed in iOS Settings → NodeLight.</td></tr>
+            <tr><td>Status says No Reply</td><td>Is the phone on the node’s Wi-Fi? Check Setup → Nodes Found and tap the node. On iPhone, make sure Local Network access is allowed in Settings → NodeLight.</td></tr>
             <tr><td>Green, but lights don’t react</td><td>Check the universe and start address on the light itself. Most nodes start at universe 0; if nothing reacts, try 1. Make sure the light is in DMX mode with the right channel count.</td></tr>
             <tr><td>Wrong colors or channels</td><td>The light’s channel order differs from the type you chose. Open the light’s editor and reorder or retype the channels to match its manual.</td></tr>
-            <tr><td>Lights flicker or lag</td><td>Lower the refresh rate in Setup (for example 30 Hz) and keep the iPhone close to the node.</td></tr>
+            <tr><td>Lights flicker or lag</td><td>Lower the refresh rate in Setup (for example 30 Hz) and keep the phone close to the node.</td></tr>
             <tr><td>Node changed address</td><td>Leave Find Node Automatically on, or pick the node again under Nodes Found.</td></tr>
             <tr><td>A light stays white and blinking</td><td>Locate is on. Tap <strong>Stop</strong> on its screen, or leave the screen.</td></tr>
             <tr><td>Everything is dark</td><td>Check that BO is not red and the Grand Master is up.</td></tr>
-            <tr><td>App won’t open</td><td>On a free developer account the app expires after 7 days and needs reinstalling. If iOS says the developer is untrusted, go to Settings → General → VPN &amp; Device Management and trust it. iOS needs internet for that check.</td></tr>
+            <tr><td>Phones don’t see each other</td><td>Both phones must be on the same Wi-Fi with <strong>Share with Other Phones</strong> on. Some guest or hotel networks block phones from talking to each other; a node’s own Wi-Fi or a normal router works.</td></tr>
           </tbody>
         </table>
       </div>
@@ -504,7 +524,7 @@ html { scroll-behavior: smooth; }
 
     <!-- 10 -->
     <section class="ch" id="reference">
-      <h2><span class="num">10</span>Quick reference</h2>
+      <h2><span class="num">11</span>Quick reference</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Gesture</th><th>Where</th><th>Does</th></tr></thead>
@@ -525,6 +545,6 @@ html { scroll-behavior: smooth; }
   </main>
 </div>
 
-<footer class="wrap">NodeLight · iPhone lighting controller for Art-Net. Screenshots and video use the demo show “Demo Club”. · <a href="../">Home</a> · <a href="../support/">Support</a> · <a href="../privacy/">Privacy</a></footer>
+<footer class="wrap">NodeLight · lighting controller for Art-Net, for iPhone and Android. Screenshots and video use the demo show “Demo Club”. · <a href="../">Home</a> · <a href="../support/">Support</a> · <a href="../privacy/">Privacy</a></footer>
 </body>
 </html>
