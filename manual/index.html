@@ -252,7 +252,7 @@ html { scroll-behavior: smooth; }
             <li><strong>Fader:</strong> sets the brightness. In the default right-handed layout, 0% is on the right.</li>
             <li><strong>Round color button:</strong> opens the color window (chapter 03).</li>
             <li><strong>Tap the name:</strong> opens the light’s own screen with every channel.</li>
-            <li><strong>Touch and hold the name:</strong> Edit, Duplicate, Move to Section, Delete. Holding the fader never opens this menu, so you can’t trigger it by accident while fading.</li>
+            <li><strong>Touch and hold the name:</strong> Edit, Duplicate, Move to Section, Move Up, Move Down, Arrange Lights…, Delete. Holding the fader never opens this menu, so you can’t trigger it by accident while fading.</li>
           </ul>
           <p>Overlapping addresses show an orange warning triangle on the row and in the light’s screen.</p>
         </div>
@@ -387,7 +387,7 @@ html { scroll-behavior: smooth; }
       </div>
 
       <h3>Changing presets</h3>
-      <p>Touch and hold a preset for <strong>Update from Current</strong> (re-record its lights as they are now), <strong>Edit…</strong> and <strong>Delete</strong>. The editor also changes the name, transition and button color, moves the preset earlier or later in the grid, and has <strong>Recall</strong> and <strong>Update from Current Values</strong>.</p>
+      <p>Touch and hold a preset for <strong>Update from Current</strong> (re-record its lights as they are now), <strong>Edit…</strong>, <strong>Move Earlier</strong> and <strong>Move Later</strong>, <strong>Arrange Presets…</strong> (drag them into any order) and <strong>Delete</strong>. The editor also changes the name, transition and button color, moves the preset earlier or later in the grid, and has <strong>Recall</strong> and <strong>Update from Current Values</strong>.</p>
 
       <h3>Grand Master and Blackout</h3>
       <p>The panel at the top of the Presets tab scales every light’s brightness with the <strong>Grand Master</strong> fader. <strong>BO</strong> is an instant blackout; it turns red while active. Neither changes the lights’ saved values. For lights without a dimmer channel, they scale the color channels instead.</p>
@@ -397,6 +397,7 @@ html { scroll-behavior: smooth; }
     <section class="ch" id="effects">
       <h2><span class="num">07</span>Effects</h2>
       <p class="intro">Effects play moving patterns on any lights and groups. Like Locate, they only change what is sent to the lights: stop an effect and its lights return to how they were.</p>
+      <p>Touch and hold an effect’s name for <strong>Edit</strong>, <strong>Duplicate</strong>, <strong>Move Up</strong> and <strong>Move Down</strong>, <strong>Arrange Effects…</strong> (drag them into any order) and <strong>Delete</strong>.</p>
 
       <div class="shots">
         <figure>
@@ -530,8 +531,8 @@ html { scroll-behavior: smooth; }
           <thead><tr><th>Gesture</th><th>Where</th><th>Does</th></tr></thead>
           <tbody>
             <tr><td>Tap a name</td><td>Lights, Groups</td><td>Opens its screen</td></tr>
-            <tr><td>Hold a name</td><td>Lights, Groups, Effects</td><td>Edit, Duplicate, Move, Delete</td></tr>
-            <tr><td>Hold a preset</td><td>Presets</td><td>Update from Current, Edit, Delete</td></tr>
+            <tr><td>Hold a name</td><td>Lights, Groups, Effects</td><td>Edit, Duplicate, Move, Arrange, Delete</td></tr>
+            <tr><td>Hold a preset</td><td>Presets</td><td>Update from Current, Edit, Move, Arrange, Delete</td></tr>
             <tr><td>Tap a preset</td><td>Presets</td><td>Recalls it with its fade</td></tr>
             <tr><td>Tap a section name</td><td>Lights</td><td>Folds or opens it</td></tr>
             <tr><td>Tap <kbd>⋯</kbd> on a section</td><td>Lights</td><td>Add Light Here, Rename, Move, Delete</td></tr>
