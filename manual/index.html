@@ -249,7 +249,7 @@ html { scroll-behavior: smooth; }
           </ol>
           <h3>Controlling a light</h3>
           <ul>
-            <li><strong>Fader:</strong> sets the brightness. In the default right-handed layout, 0% is on the right.</li>
+            <li><strong>Fader:</strong> sets the brightness. In the default right-handed layout, 0% is on the right. For a precise level, tap the <strong>percentage</strong> next to it: <kbd>−</kbd> and <kbd>+</kbd> move it one step (of 255), and holding a button keeps stepping.</li>
             <li><strong>Round color button:</strong> opens the color window (chapter 03).</li>
             <li><strong>Tap the name:</strong> opens the light’s own screen with every channel.</li>
             <li><strong>Touch and hold the name:</strong> Edit, Duplicate, Move to Section, Move Up, Move Down, Arrange Lights…, Delete. Holding the fader never opens this menu, so you can’t trigger it by accident while fading.</li>
@@ -264,12 +264,26 @@ html { scroll-behavior: smooth; }
 
       <div class="shots">
         <figure>
-          <img src="img/light_detail.jpg" alt="Par 1 screen with Color, Locate, Reset and one slider per DMX channel" loading="lazy">
-          <figcaption>A light’s screen: every channel with its DMX address and value, plus Locate and Reset.</figcaption>
+          <img src="img/light_detail.jpg" alt="Par 1 screen with Color, Locate, Reset and one slider per DMX channel, each with minus and plus buttons" loading="lazy">
+          <figcaption>A light’s screen: every channel with its DMX address, value and <kbd>−</kbd> / <kbd>+</kbd>, plus Locate and Reset.</figcaption>
         </figure>
         <figure>
           <img src="img/light_menu.jpg" alt="Touch-and-hold menu on Par 2 with Edit, Duplicate, Move to Section and Delete" loading="lazy">
           <figcaption>Touch and hold a light’s name for its menu.</figcaption>
+        </figure>
+      </div>
+      <h3>Fine tuning</h3>
+      <div class="pair">
+        <div>
+          <p>Faders are quick but coarse under a finger. For an exact level:</p>
+          <ul>
+            <li><strong>On a light’s or group’s screen</strong>, every fader has <kbd>−</kbd> and <kbd>+</kbd> next to its value. Each tap moves it <strong>one step</strong> (a DMX value from 0 to 255); hold a button to keep stepping.</li>
+            <li><strong>In the Lights and Groups lists</strong>, tap the <strong>percentage</strong> next to a fader to open a small window with the exact value and <kbd>−</kbd> / <kbd>+</kbd>.</li>
+          </ul>
+        </div>
+        <figure>
+          <img src="img/fine_tune.jpg" alt="Fine-tune window over the Lights list showing Dimmer 255, 100%, with minus and plus buttons" loading="lazy">
+          <figcaption>Tap a fader’s percentage for one-step adjustment.</figcaption>
         </figure>
       </div>
       <p><strong>Reset</strong> puts every channel back to its default value. <strong>Delete</strong> always asks first with a red confirmation; deleting a light also removes it from groups, presets and effects.</p>
@@ -337,7 +351,7 @@ html { scroll-behavior: smooth; }
           <ol class="steps">
             <li>Tap <kbd>+</kbd>, name the group and tick its lights. <strong>All</strong> and <strong>None</strong> speed this up.</li>
             <li>Use the row’s fader and color button to set every light in the group at once.</li>
-            <li>Tap the group’s name for its screen: Color, Locate, Reset, one slider per attribute (dimmer, red, pan…) and the list of its lights.</li>
+            <li>Tap the group’s name for its screen: Color, Locate, Reset, one slider per attribute (dimmer, red, pan…) with <kbd>−</kbd> / <kbd>+</kbd> for fine tuning, and the list of its lights.</li>
           </ol>
           <ul>
             <li><strong>Touch and hold the name:</strong> Edit, Move Up, Move Down, Delete. Deleting a group never deletes its lights.</li>
@@ -545,6 +559,8 @@ html { scroll-behavior: smooth; }
             <tr><td>Tap a section name</td><td>Lights</td><td>Folds or opens it</td></tr>
             <tr><td>Tap <kbd>⋯</kbd> on a section</td><td>Lights</td><td>Add Light Here, Rename, Move, Delete</td></tr>
             <tr><td>Tap the round button</td><td>Anywhere</td><td>Color window</td></tr>
+            <tr><td>Tap a fader’s %</td><td>Lights, Groups</td><td>Fine-tune window</td></tr>
+            <tr><td>Tap or hold <kbd>−</kbd> / <kbd>+</kbd></td><td>Light and group screens</td><td>One step, or keep stepping</td></tr>
             <tr><td>Tap <kbd>Tap</kbd> in rhythm</td><td>Effect editor</td><td>Sets the speed</td></tr>
           </tbody>
         </table>
