@@ -37,7 +37,7 @@
 }
 
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 var(--body); }
 a { color: var(--neon); }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
 code, .mono { font-family: var(--mono); font-size: 0.86em; }
@@ -50,8 +50,8 @@ header.mast { padding-block: 48px 28px; }
 .brand { display: flex; align-items: center; gap: 16px; }
 .brand img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 0 0 1px var(--line), 0 8px 30px -10px var(--neon); }
 .eyebrow { font: 600 13px/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--neon); }
-h1 { font: 800 clamp(34px, 5vw, 52px)/1.04 var(--display); letter-spacing: -0.02em; margin: 18px 0 14px; text-wrap: balance; }
-.lede { font-size: 20px; color: var(--muted); max-width: 62ch; margin: 0; }
+h1 { font: 800 clamp(32px, 4.5vw, 46px)/1.08 var(--display); letter-spacing: -0.01em; margin: 18px 0 14px; text-wrap: balance; }
+.lede { font-size: 19px; color: var(--muted); max-width: 60ch; margin: 0; }
 
 .tour { margin-block: 30px 10px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .tour video { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; display: block; border: 1px solid var(--line); }
@@ -116,6 +116,8 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
 @media (max-width: 900px) {
   .layout { grid-template-columns: minmax(0, 1fr); gap: 10px; }
   nav.rail { position: static; }
+  /* The chapter list sits above the text here: a line and some room before chapter 01. */
+  section.ch:first-child { border-top: 1px solid var(--line); padding-top: 34px; margin-top: 18px; }
   nav.rail ol { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .pair, .pair.flip { grid-template-columns: minmax(0, 1fr); }
   .pair > figure, .pair.flip > figure { order: 0; max-width: 250px; }
