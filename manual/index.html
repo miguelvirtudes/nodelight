@@ -171,6 +171,8 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
   footer { padding-block: 4mm 0; font-size: 8.5pt; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+/* No rubber-band bounce at the top and bottom: it pulled the fixed bar down with the page. */
+html, body { overscroll-behavior-y: none; }
 /* Site navigation (same as the other pages of nodelight.github.io) */
 nav.top { display: flex; align-items: center; gap: 18px; padding-block: 10px; flex-wrap: wrap; position: sticky; top: 0; z-index: 20; background: var(--bg); }
 nav.top .home { display: flex; align-items: center; gap: 10px; font: 700 17px var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
