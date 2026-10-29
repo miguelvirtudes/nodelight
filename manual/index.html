@@ -87,6 +87,9 @@ ol.steps li::marker { color: var(--neon); font-weight: 700; }
 .shots { display: flex; gap: 16px; flex-wrap: wrap; margin-block: 16px; }
 .shots figure { flex: 1 1 200px; max-width: 250px; }
 figure { margin: 0; }
+figure.wide { margin-block: 16px; max-width: 720px; }
+figure.wide img { border-radius: 22px; }
+.wide-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 figure img { width: 100%; max-width: 100%; display: block; border-radius: 26px; border: 6px solid #10141c; box-shadow: 0 0 0 1px var(--line), 0 18px 40px -24px rgba(0, 40, 90, .55); background: #000; }
 figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
 
@@ -157,6 +160,9 @@ footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var
   figure { break-inside: avoid; }
   figure img { border-width: 3px; border-radius: 14px; box-shadow: none; }
   figcaption { font-size: 8.5pt; }
+  figure.wide { max-width: 130mm; }
+  figure.wide img { border-radius: 10px; }
+  .wide-pair { grid-template-columns: 1fr 1fr; gap: 6mm; break-inside: avoid; }
   .table-wrap { overflow: visible; break-inside: avoid; }
   table { font-size: 9.5pt; }
   tr { break-inside: avoid; }
@@ -181,7 +187,7 @@ html { scroll-behavior: smooth; }
   <div class="tour">
     <video controls preload="metadata" poster="img/poster.jpg" src="../media/NodeLight-Tour.mp4"></video>
     <img class="print-only" src="img/poster.jpg" alt="Opening frame of the NodeLight video tour">
-    <p>Video tour, 4 minutes, narrated. It walks through every tab using a demo show called “Demo Club”, including sharing a show live with a second phone and sending a show to it.</p>
+    <p>Video tour, 5 minutes, narrated. It walks through every tab using a demo show called “Demo Club”, including the desk with the phone sideways, sharing a show live with a second phone and sending a show to it.</p>
   </div>
 </header>
 
@@ -195,6 +201,7 @@ html { scroll-behavior: smooth; }
       <li><a href="#groups">Groups</a></li>
       <li><a href="#presets">Presets</a></li>
       <li><a href="#effects">Effects</a></li>
+      <li><a href="#desk">The desk (sideways)</a></li>
       <li><a href="#setup">Setup and shows</a></li>
       <li><a href="#sharing">Sharing with other phones</a></li>
       <li><a href="#trouble">Troubleshooting</a></li>
@@ -404,7 +411,7 @@ html { scroll-behavior: smooth; }
       <p>Touch and hold a preset for <strong>Update from Current</strong> (save every light into it as it is now, also lights added since), <strong>Edit…</strong>, <strong>Move Earlier</strong> and <strong>Move Later</strong>, <strong>Arrange Presets…</strong> (drag them into any order) and <strong>Delete</strong>. The editor also changes the name, transition and button color, moves the preset earlier or later in the grid, and has <strong>Recall</strong> and <strong>Update from Current Values</strong>.</p>
 
       <h3>Grand Master and Blackout</h3>
-      <p>The panel at the top of the Presets tab scales every light’s brightness with the <strong>Grand Master</strong> fader. <strong>BO</strong> is an instant blackout; it turns red while active. Neither changes the lights’ saved values. For lights without a dimmer channel, they scale the color channels instead.</p>
+      <p>The panel at the top of the Presets tab scales every light’s brightness with the <strong>Grand Master</strong> fader. <strong>BO</strong> is an instant blackout; it turns red while active. It sits at the end of the fader where 100% is: on the right when left-oriented, on the left when right-oriented (Setup → Layout). With the phone sideways they become a vertical strip on the right (chapter 08). Neither changes the lights’ saved values. For lights without a dimmer channel, they scale the color channels instead.</p>
     </section>
 
     <!-- 07 -->
@@ -469,8 +476,39 @@ html { scroll-behavior: smooth; }
     </section>
 
     <!-- 08 -->
+    <section class="ch" id="desk">
+      <h2><span class="num">08</span>The desk (phone sideways)</h2>
+      <p class="intro">Turn the phone sideways and NodeLight becomes a small lighting desk: every light gets a vertical fader, with 0% at the bottom and 100% at the top. Turn it back and the lists return.</p>
+      <figure class="wide">
+        <img src="img/desk_lights.jpg" alt="Lights tab sideways: sections Stage, Bar and Dance Floor side by side, each light with a color button and a vertical fader" loading="lazy">
+        <figcaption>Lights sideways. Each section is a block of faders; lights without a dimmer show “No dimmer”.</figcaption>
+      </figure>
+      <ul>
+        <li><strong>Lights:</strong> one strip per light, grouped by section. Each strip has the name (tap it to open the light), the color button, the fader and its percentage (tap it to fine-tune). Tap a section name to fold or open it.</li>
+        <li><strong>Groups:</strong> the same, one strip per group.</li>
+        <li><strong>Moving a fader:</strong> drag up or down. The fader moves with your finger from wherever you touch it, so it never jumps; you feel a click at 0% and 100%.</li>
+        <li><strong>Scrolling:</strong> swipe sideways to see more lights. A sideways swipe never moves a fader.</li>
+      </ul>
+      <div class="wide-pair">
+        <figure>
+          <img src="img/desk_presets.jpg" alt="Presets tab sideways: preset buttons on the left, and on the right a Master strip with BO and a vertical Grand Master fader at 94%" loading="lazy">
+          <figcaption>Presets sideways: the Grand Master and BO are a vertical strip on the right.</figcaption>
+        </figure>
+        <figure>
+          <img src="img/desk_effects.jpg" alt="Effects tab sideways: Rainbow Wave, Bar Pulse and Party Mix, each with a play button and a vertical speed fader in BPM" loading="lazy">
+          <figcaption>Effects sideways: play/stop and a vertical speed fader for each effect.</figcaption>
+        </figure>
+      </div>
+      <ul>
+        <li><strong>Presets:</strong> the buttons stay as they are; the <strong>Grand Master</strong> and <strong>BO</strong> move to a vertical strip on the right. They are only on the Presets tab, so the Lights and Groups desk has room for more faders.</li>
+        <li><strong>Effects:</strong> each effect has its play/stop button and a vertical <strong>speed</strong> fader (10 to 240 BPM; up is faster). Tap the name to open the editor.</li>
+      </ul>
+      <div class="note"><p><strong>Rotation lock.</strong> If nothing changes when you turn the phone, turn off the rotation lock (iPhone: Control Center; Android: quick settings).</p></div>
+    </section>
+
+    <!-- 09 -->
     <section class="ch" id="setup">
-      <h2><span class="num">08</span>Setup and shows</h2>
+      <h2><span class="num">09</span>Setup and shows</h2>
       <div class="pair">
         <div>
           <p class="intro">The gear button opens Setup. Changes apply as you make them.</p>
@@ -478,7 +516,7 @@ html { scroll-behavior: smooth; }
             <li><strong>Art-Net Output:</strong> output on or off, the node IP, port (normally <code>6454</code>), refresh rate (1 to 44 Hz, default 40) and the status.</li>
             <li><strong>Nodes Found:</strong> tap a node to use it. <strong>Find Node Automatically</strong> switches by itself when the node IP stops answering.</li>
             <li><strong>Appearance:</strong> Dark (default) or Light. It switches instantly.</li>
-            <li><strong>Layout:</strong> <strong>Left-oriented</strong> (the default) has faders start at 0% on the left, with the color button on the right. <strong>Right-oriented</strong> puts 0% on the right and the color button on the left. Names, menus and bars stay where they are.</li>
+            <li><strong>Layout:</strong> <strong>Left-oriented</strong> (the default) has faders start at 0% on the left, with the color button on the right. <strong>Right-oriented</strong> puts 0% on the right, the color button on the left and BO on the left of the Grand Master. Names, menus and bars stay where they are. With the phone sideways, faders always go from 0% at the bottom to 100% at the top.</li>
             <li><strong>Current Show:</strong> name, number of lights, universes and channels used, plus Export and Import.</li>
             <li><strong>Saved Shows:</strong> tap to open, swipe to delete, New Show, Duplicate Current Show.</li>
           </ul>
@@ -508,7 +546,7 @@ html { scroll-behavior: smooth; }
 
     <!-- 09 -->
     <section class="ch" id="sharing">
-      <h2><span class="num">09</span>Sharing with other phones</h2>
+      <h2><span class="num">10</span>Sharing with other phones</h2>
       <p class="intro">Several phones can run the same show together — for example one at the desk and one on stage. iPhones and Android phones work together.</p>
       <ol class="steps">
         <li>Put every phone on the same Wi-Fi network.</li>
@@ -535,7 +573,7 @@ html { scroll-behavior: smooth; }
 
     <!-- 10 -->
     <section class="ch" id="trouble">
-      <h2><span class="num">10</span>Troubleshooting</h2>
+      <h2><span class="num">11</span>Troubleshooting</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Problem</th><th>What to check</th></tr></thead>
@@ -555,7 +593,7 @@ html { scroll-behavior: smooth; }
 
     <!-- 10 -->
     <section class="ch" id="reference">
-      <h2><span class="num">11</span>Quick reference</h2>
+      <h2><span class="num">12</span>Quick reference</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Gesture</th><th>Where</th><th>Does</th></tr></thead>
@@ -569,6 +607,7 @@ html { scroll-behavior: smooth; }
             <tr><td>Tap the round button</td><td>Anywhere</td><td>Color window</td></tr>
             <tr><td>Tap a fader’s %</td><td>Lights, Groups</td><td>Fine-tune window</td></tr>
             <tr><td>Tap or hold <kbd>−</kbd> / <kbd>+</kbd></td><td>Light and group screens</td><td>One step, or keep stepping</td></tr>
+            <tr><td>Turn the phone sideways</td><td>Lights, Groups, Presets, Effects</td><td>Desk with vertical faders</td></tr>
             <tr><td>Tap <kbd>Tap</kbd> in rhythm</td><td>Effect editor</td><td>Sets the speed</td></tr>
           </tbody>
         </table>
